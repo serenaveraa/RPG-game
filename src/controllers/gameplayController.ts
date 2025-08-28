@@ -1,10 +1,7 @@
 import type { Request, Response } from "express";
-import { z } from "zod";
 import { gatherService } from "../services/gatherService";
 import { craftingService } from "../services/craftingService";
-
-const gatherSchema = z.object({ locationId: z.string() });
-const craftSchema = z.object({ recipeId: z.string() });
+// Validation handled by middleware (see routes)
 
 export const gameplayController = {
   listLocations(_req: Request, res: Response) {
@@ -12,10 +9,9 @@ export const gameplayController = {
   },
 
   gather(req: Request, res: Response) {
-    const parsed = gatherSchema.safeParse(req.body);
-    if (!parsed.success) return res.status(400).json({ message: "Datos inválidos", details: parsed.error.flatten() });
     const playerId = req.params.id as string;
-    const result = gatherService.performGather(playerId, parsed.data.locationId);
+    const locationId = (req as any).validatedBody?.locationId ?? req.body?.locationId;
+    const result = gatherService.performGather(playerId, locationId);
     if (!result.ok) return res.status(400).json({ message: result.error });
     res.json(result);
   },
@@ -25,10 +21,9 @@ export const gameplayController = {
   },
 
   craft(req: Request, res: Response) {
-    const parsed = craftSchema.safeParse(req.body);
-    if (!parsed.success) return res.status(400).json({ message: "Datos inválidos", details: parsed.error.flatten() });
     const playerId = req.params.id as string;
-    const result = craftingService.craft(playerId, parsed.data.recipeId);
+    const recipeId = (req as any).validatedBody?.recipeId ?? req.body?.recipeId;
+    const result = craftingService.craft(playerId, recipeId);
     if (!result.ok) return res.status(400).json({ message: result.error });
     res.json(result);
   },
