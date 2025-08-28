@@ -1,0 +1,128 @@
+{
+  "info": {
+    "name": "RPG Crafting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "rpg-crafting-api"
+  },
+  "item": [
+    {
+      "name": "Create Player",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:3000/api/players", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players"]},
+        "body": {"mode": "raw", "raw": "{\n  \"name\": \"Karina\"\n}"}
+      },
+      "response": []
+    },
+    {
+      "name": "Get Player",
+      "request": {
+        "method": "GET",
+        "url": {"raw": "http://localhost:3000/api/players/{{playerId}}", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players", "{{playerId}}"]}
+      },
+      "response": []
+    },
+    {
+      "name": "Update Player",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:3000/api/players/{{playerId}}", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players", "{{playerId}}"]},
+        "body": {"mode": "raw", "raw": "{\n  \"level\": 1\n}"}
+      },
+      "response": []
+    },
+    {
+      "name": "List Locations",
+      "request": {"method": "GET", "url": {"raw": "http://localhost:3000/api/locations", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "locations"]}},
+      "response": []
+    },
+    {
+      "name": "Gather (Forest)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:3000/api/players/{{playerId}}/gather", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players", "{{playerId}}", "gather"]},
+        "body": {"mode": "raw", "raw": "{\n  \"locationId\": \"forest\"\n}"}
+      },
+      "response": []
+    },
+    {
+      "name": "List Recipes",
+      "request": {"method": "GET", "url": {"raw": "http://localhost:3000/api/recipes", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "recipes"]}},
+      "response": []
+    },
+    {
+      "name": "Learnable Recipes",
+      "request": {"method": "GET", "url": {"raw": "http://localhost:3000/api/players/{{playerId}}/recipes", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players", "{{playerId}}", "recipes"]}},
+      "response": []
+    },
+    {
+      "name": "Craft Wooden Sword",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:3000/api/players/{{playerId}}/craft", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players", "{{playerId}}", "craft"]},
+        "body": {"mode": "raw", "raw": "{\n  \"recipeId\": \"wooden_sword\"\n}"}
+      },
+      "response": []
+    },
+    {
+      "name": "Get Inventory",
+      "request": {"method": "GET", "url": {"raw": "http://localhost:3000/api/players/{{playerId}}/inventory", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players", "{{playerId}}", "inventory"]}},
+      "response": []
+    },
+    {
+      "name": "Delete Inventory Item",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/api/players/{{playerId}}/inventory/{{itemId}}?quantity=1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "players", "{{playerId}}", "inventory", "{{itemId}}"],
+          "query": [{"key": "quantity", "value": "1"}]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ERROR: Create Player invalid",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:3000/api/players", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players"]},
+        "body": {"mode": "raw", "raw": "{\n  \"name\": \"\"\n}"}
+      },
+      "response": []
+    },
+    {
+      "name": "ERROR: Gather invalid location",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:3000/api/players/{{playerId}}/gather", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players", "{{playerId}}", "gather"]},
+        "body": {"mode": "raw", "raw": "{\n  \"locationId\": \"nowhere\"\n}"}
+      },
+      "response": []
+    },
+    {
+      "name": "ERROR: Craft without materials",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:3000/api/players/{{playerId}}/craft", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "players", "{{playerId}}", "craft"]},
+        "body": {"mode": "raw", "raw": "{\n  \"recipeId\": \"wooden_sword\"\n}"}
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {"key": "playerId", "value": ""},
+    {"key": "itemId", "value": ""}
+  ]
+}
+
+
